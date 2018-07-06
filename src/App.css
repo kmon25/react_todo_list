@@ -1,0 +1,37 @@
+.App {
+  color: #ced8e4;
+  background: #1e1f2e;
+  width: 20%;
+  margin: 50px auto;
+  border-radius: 20px;
+  border: 1px solid #2b2d42;
+  box-shadow: 5px 5px 5px rgb(43, 45, 66, 0.5);
+}
+
+.App h1 {
+  padding: 20px 0 10px 20px;
+  font-size: 1.5em;
+  font-weight: 100;
+}
+
+#intro {
+  padding-left: 20px;
+  font-size: 0.9em;
+  font-weight: 100;
+}
+
+.stats {
+  display: flex;
+  background: #2b2d42;
+  border-radius: 0 0 20px 20px;
+}
+
+#count,
+#completed {
+  padding: 10px 20px;
+}
+
+#count span,
+#completed span {
+  color: #3ec9e9;
+}

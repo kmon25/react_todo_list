@@ -1,0 +1,40 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo p {
+  width: 80%;
+  padding: 10px 0 10px 20px;
+  text-transform: uppercase;
+  font-size: 1.1em;
+  font-weight: 400;
+  border-bottom: 1px solid rgb(206, 216, 228, 0.2);
+}
+
+.todo p:hover {
+  cursor: pointer;
+  color: #2b2d42;
+  background: #3ec9e9;
+  transition: all 0.3s ease-in-out;
+}
+
+.delete {
+  width: 15%;
+  border: none;
+  color: #3ec9e9;
+  background: none;
+  cursor: pointer;
+  border-bottom: 1px solid rgb(206, 216, 228, 0.2);
+}
+
+.delete:hover {
+  color: #1e1f2e;
+  background: #3ec9e9;
+  transition: all 0.3s ease-in-out;
+}
+
+.completed {
+  text-decoration-line: line-through;
+  color: rgb(206, 216, 228, 0.2);
+}
