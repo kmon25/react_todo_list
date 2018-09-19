@@ -6,14 +6,13 @@ import './App.css';
 class App extends Component {
 
   state = {
-    completed: 0,
-    todos: [
-      { id: 1, name: 'Eat Lunch', complete: false},
-      { id: 2, name: 'Take Shower', complete: false},
-      { id: 3, name: 'Learn React', complete: false},
-      { id: 4, name: 'Watch World Cup 2018', complete: false},
-      { id: 5, name: 'Push 1 Commit', complete: false},
-    ]
+    todos: []
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8080/api/todos')
+      .then(res => res.json())
+      .then(todos => this.setState({todos: todos}))
   }
 
   completeThisTodo = (id) => {
@@ -52,13 +51,19 @@ class App extends Component {
 
   render() {
 
-    const displayTodos = this.state.todos.map(todo => {
+    const { todos } = this.state;
+
+    const displayTodos = todos.map(todo => {
       return <Todo
-        key={todo.id}
+        key={todo._id}
         task={todo.name}
+
+        //TODO: Fix completed
         completed={todo.complete}
-        clicked={() => this.completeThisTodo(todo.id)}
-        delete={() => this.deleteThisTodo(todo.id)}
+
+        //TODO: Fix clicks to complete and delete todo
+        clicked={() => this.completeThisTodo(todo._id)}
+        delete={() => this.deleteThisTodo(todo._id)}
         />
     });
 
@@ -71,7 +76,9 @@ class App extends Component {
         {displayTodos}
 
         <div className='stats'>
-          <p id='count'>Todos: <span>{this.state.todos.length}</span></p>
+          <p id='count'>Todos: <span>{todos.length}</span></p>
+
+          {/*TODO: Fix completed to show numbers instead of true or false */}
           <p id='completed'>Completed: <span>{this.state.completed}</span></p>
         </div>
 
