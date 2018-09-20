@@ -50,9 +50,13 @@ class App extends Component {
   }
 
   deleteTodo = (id) => {
-    // const allTodos = this.state.todos;
-    // const thisTodo = allTodos.filter(item => item.id !== id);
-    // this.setState({ todos: thisTodo });
+    fetch(`http://localhost:8080/api/todos/${id}`, {
+      method: 'delete',
+    })
+      .then(() => {
+        const remainingTodos = this.state.todos.filter(todo => todo._id !== id);
+        this.setState({todos: remainingTodos});
+      })
   }
 
   render() {
@@ -68,7 +72,7 @@ class App extends Component {
           //TODO: Fix completed
           completed={todo.complete}
 
-          //TODO: Fix clicks to complete and delete todo
+          //TODO: Fix clicks to complete todo
           clicked={() => this.completeTodo(todo._id)}
           delete={() => this.deleteTodo(todo._id)}
         />
