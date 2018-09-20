@@ -6,9 +6,9 @@ const todo = (props) => {
     <div className='todo'>
       {
         props.completed ?
-        <p className='completed' onClick={props.clicked}>{props.task}</p>
+        <p className='completed' onClick={props.clicked}>{props.taskName}</p>
         :
-        <p onClick={props.clicked}>{props.task}</p>
+        <p onClick={props.clicked}>{props.taskName}</p>
       }
       <button className='delete' onClick={props.delete}>x</button>
     </div>

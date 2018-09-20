@@ -35,18 +35,18 @@ class App extends Component {
     }
   }
 
-  completeTodo = (id) => {
-    // const allTodos = this.state.todos;
-    // const thisTodo = allTodos.find(item => item.id === id);
-    // thisTodo.complete = !thisTodo.complete;
-
-    // const isCompleted = allTodos.filter(todo => todo.complete);
-    // const numOfCompleted = isCompleted.length;
-
-    // this.setState({
-    //   completed: numOfCompleted,
-    //   todos: allTodos
-    // });
+  completeTodo = (todo) => {
+    fetch(`http://localhost:8080/api/todos/${todo._id}`, {
+      method: 'put',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({completed: !todo.completed})
+    })
+      .then(res => res.json())
+      .then(updatedTodo => {
+        //TODO: Get the todo from the state and set it's completed to the opposite
+      })
   }
 
   deleteTodo = (id) => {
@@ -67,13 +67,13 @@ class App extends Component {
       return (
         <Todo
           key={todo._id}
-          task={todo.name}
+          taskName={todo.name}
 
           //TODO: Fix completed
-          completed={todo.complete}
+          completed={todo.completed}
 
           //TODO: Fix clicks to complete todo
-          clicked={() => this.completeTodo(todo._id)}
+          clicked={() => this.completeTodo(todo)}
           delete={() => this.deleteTodo(todo._id)}
         />
       )
