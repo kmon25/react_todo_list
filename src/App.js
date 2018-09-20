@@ -10,43 +10,49 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.loadTodos();
+  }
+
+  loadTodos = () => {
     fetch('http://localhost:8080/api/todos')
       .then(res => res.json())
       .then(todos => this.setState({todos: todos}))
   }
 
-  completeThisTodo = (id) => {
-    const allTodos = this.state.todos;
-    const thisTodo = allTodos.find(item => item.id === id);
-    thisTodo.complete = !thisTodo.complete;
+  addTodo = (event) => {
+    if (event.key === 'Enter' && event.target.value !== '') {
+      fetch('http://localhost:8080/api/todos', {
+        method: 'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({name: event.target.value})
+      })
+        .then(res => res.json())
+        .then(newTodo => this.setState({todos: [...this.state.todos, newTodo]}))
 
-    const isCompleted = allTodos.filter(todo => todo.complete);
-    const numOfCompleted = isCompleted.length;
-
-    this.setState({
-      completed: numOfCompleted,
-      todos: allTodos
-    });
-  }
-
-  deleteThisTodo = (id) => {
-    const allTodos = this.state.todos;
-    const thisTodo = allTodos.filter(item => item.id !== id);
-    this.setState({ todos: thisTodo });
-  }
-
-  addThisTodo = (event) => {
-    const allTodos = this.state.todos;
-    if (event.key === 'Enter') {
-      const newTodo = {
-        id: this.state.todos.length + 1,
-        name: event.target.value,
-        complete: false
-      };
-      allTodos.push(newTodo);
-      this.setState({ todos: allTodos });
       event.target.value = '';
     }
+  }
+
+  completeTodo = (id) => {
+    // const allTodos = this.state.todos;
+    // const thisTodo = allTodos.find(item => item.id === id);
+    // thisTodo.complete = !thisTodo.complete;
+
+    // const isCompleted = allTodos.filter(todo => todo.complete);
+    // const numOfCompleted = isCompleted.length;
+
+    // this.setState({
+    //   completed: numOfCompleted,
+    //   todos: allTodos
+    // });
+  }
+
+  deleteTodo = (id) => {
+    // const allTodos = this.state.todos;
+    // const thisTodo = allTodos.filter(item => item.id !== id);
+    // this.setState({ todos: thisTodo });
   }
 
   render() {
@@ -54,24 +60,27 @@ class App extends Component {
     const { todos } = this.state;
 
     const displayTodos = todos.map(todo => {
-      return <Todo
-        key={todo._id}
-        task={todo.name}
+      return (
+        <Todo
+          key={todo._id}
+          task={todo.name}
 
-        //TODO: Fix completed
-        completed={todo.complete}
+          //TODO: Fix completed
+          completed={todo.complete}
 
-        //TODO: Fix clicks to complete and delete todo
-        clicked={() => this.completeThisTodo(todo._id)}
-        delete={() => this.deleteThisTodo(todo._id)}
+          //TODO: Fix clicks to complete and delete todo
+          clicked={() => this.completeTodo(todo._id)}
+          delete={() => this.deleteTodo(todo._id)}
         />
+      )
     });
 
     return (
       <div className="App">
         <h1>Todo List</h1>
         <p id='intro'>Add and delete your tasks below.</p>
-        <InputField pressed={this.addThisTodo}/>
+
+        <InputField pressed={this.addTodo} />
 
         {displayTodos}
 
@@ -81,7 +90,6 @@ class App extends Component {
           {/*TODO: Fix completed to show numbers instead of true or false */}
           <p id='completed'>Completed: <span>{this.state.completed}</span></p>
         </div>
-
       </div>
     );
   }
