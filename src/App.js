@@ -45,7 +45,11 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(updatedTodo => {
-        //TODO: Get the todo from the state and set it's completed to the opposite
+        this.setState({
+          todos: this.state.todos.map(t =>
+            t._id === updatedTodo._id ? {...t, completed: !t.completed} : t
+          )
+        })
       })
   }
 
