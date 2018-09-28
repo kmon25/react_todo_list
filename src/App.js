@@ -67,16 +67,14 @@ class App extends Component {
 
     const { todos } = this.state;
 
+    const completedCount = todos.filter(todo => todo.completed === true);
+
     const displayTodos = todos.map(todo => {
       return (
         <Todo
           key={todo._id}
           taskName={todo.name}
-
-          //TODO: Fix completed
           completed={todo.completed}
-
-          //TODO: Fix clicks to complete todo
           clicked={() => this.completeTodo(todo)}
           delete={() => this.deleteTodo(todo._id)}
         />
@@ -95,8 +93,7 @@ class App extends Component {
         <div className='stats'>
           <p id='count'>Todos: <span>{todos.length}</span></p>
 
-          {/*TODO: Fix completed to show numbers instead of true or false */}
-          <p id='completed'>Completed: <span>{this.state.completed}</span></p>
+          <p id='completed'>Completed: <span>{completedCount.length}</span></p>
         </div>
       </div>
     );
