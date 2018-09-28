@@ -16,7 +16,7 @@
 
 #intro {
   padding-left: 20px;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 100;
 }
 
@@ -34,4 +34,22 @@
 #count span,
 #completed span {
   color: #3ec9e9;
+}
+
+@media screen and (max-width: 700px) {
+  .App {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+  .App {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1439px) {
+  .App {
+    width: 30%;
+  }
 }
