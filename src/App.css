@@ -12,18 +12,30 @@
   padding: 20px 0 10px 20px;
   font-size: 1.5em;
   font-weight: 100;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #intro {
   padding-left: 20px;
   font-size: 1em;
   font-weight: 100;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .stats {
   display: flex;
   background: #2b2d42;
   border-radius: 0 0 20px 20px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #count,
