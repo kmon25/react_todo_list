@@ -1,103 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Provider, Consumer } from './Context/Context';
 import InputField from './InputField/InputField';
 import Todo from './Todo/Todo';
 import './App.css';
 
-class App extends Component {
+const App = () => {
+  return (
+    <Provider>
+      <Consumer>
+        {(value) => {
+          const { todos, addTodo, completeTodo, deleteTodo } = value;
 
-  state = {
-    todos: []
-  }
+          const completedCount = todos.filter(todo => todo.completed === true);
 
-  componentDidMount() {
-    this.loadTodos();
-  }
+          const displayTodos = todos.map(todo => {
+            return (
+              <Todo
+                key={todo._id}
+                taskName={todo.name}
+                completed={todo.completed}
+                clicked={() => completeTodo(todo)}
+                delete={() => deleteTodo(todo._id)}
+              />
+            )
+          });
 
-  loadTodos = () => {
-    fetch('http://localhost:8080/api/todos')
-      .then(res => res.json())
-      .then(todos => this.setState({todos: todos}))
-  }
-
-  addTodo = (event) => {
-    if (event.key === 'Enter' && event.target.value !== '') {
-      fetch('http://localhost:8080/api/todos', {
-        method: 'post',
-        headers: new Headers({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({name: event.target.value})
-      })
-        .then(res => res.json())
-        .then(newTodo => this.setState({todos: [...this.state.todos, newTodo]}))
-
-      event.target.value = '';
-    }
-  }
-
-  completeTodo = (todo) => {
-    fetch(`http://localhost:8080/api/todos/${todo._id}`, {
-      method: 'put',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({completed: !todo.completed})
-    })
-      .then(res => res.json())
-      .then(updatedTodo => {
-        this.setState({
-          todos: this.state.todos.map(t =>
-            t._id === updatedTodo._id ? {...t, completed: !t.completed} : t
+          return (
+            <div className="App">
+              <h1>Todo List</h1>
+              <p id='intro'>Add and delete your tasks below.</p>
+              <InputField pressed={addTodo} />
+              {displayTodos}
+              <div className='stats'>
+                <p id='count'>Todos: <span>{todos.length}</span></p>
+                <p id='completed'>Completed: <span>{completedCount.length}</span></p>
+              </div>
+            </div>
           )
-        })
-      })
-  }
-
-  deleteTodo = (id) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
-      method: 'delete',
-    })
-      .then(() => {
-        const remainingTodos = this.state.todos.filter(todo => todo._id !== id);
-        this.setState({todos: remainingTodos});
-      })
-  }
-
-  render() {
-
-    const { todos } = this.state;
-
-    const completedCount = todos.filter(todo => todo.completed === true);
-
-    const displayTodos = todos.map(todo => {
-      return (
-        <Todo
-          key={todo._id}
-          taskName={todo.name}
-          completed={todo.completed}
-          clicked={() => this.completeTodo(todo)}
-          delete={() => this.deleteTodo(todo._id)}
-        />
-      )
-    });
-
-    return (
-      <div className="App">
-        <h1>Todo List</h1>
-        <p id='intro'>Add and delete your tasks below.</p>
-
-        <InputField pressed={this.addTodo} />
-
-        {displayTodos}
-
-        <div className='stats'>
-          <p id='count'>Todos: <span>{todos.length}</span></p>
-
-          <p id='completed'>Completed: <span>{completedCount.length}</span></p>
-        </div>
-      </div>
-    );
-  }
+        }}
+      </Consumer>
+    </Provider>
+  );
 }
 
 export default App;
