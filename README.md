@@ -3,7 +3,9 @@
 This is a simple and elegant React todo list built to practice react concepts.<br>
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-This project also uses a custom built API server and MongoDB to save your todos.<br> `The server is hosted on Heroku and the database is hosted on mLab`
+This project also uses a custom built API server and MongoDB to save your todos.<br>
+
+`The server is hosted on Heroku and the database is hosted on mLab`
 
 ![React Todo List](https://ctaminian.github.io/img/mvc-todo.jpg)
 
