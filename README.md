@@ -3,16 +3,9 @@
 This is a simple and elegant React todo list built to practice react concepts.<br>
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-This project also uses a custom built API server and MongoDB to save your todos.<br> `Please make sure to download the server as well.`
+This project also uses a custom built API server and MongoDB to save your todos.<br> `The server is hosted on Heroku and the database is hosted on mLab`
 
 ![React Todo List](https://ctaminian.github.io/img/mvc-todo.jpg)
-
-## Instructions Server
-
-- Download [The API Server](https://github.com/ctaminian/todo-list-api) for this project.
-- Run `npm install` to download the server's dependencies.
-- Once done, run `node server.js` to run the server.
-- Note: You will need a local version of `MongoDB` installed on your computer for this project to work.
 
 ## Instructions App
 
