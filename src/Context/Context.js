@@ -13,14 +13,14 @@ export class Provider extends Component {
   }
 
   loadTodos = () => {
-    fetch('http://localhost:8080/api/todos')
+    fetch('https://frozen-brushlands-43586.herokuapp.com/api/todos')
       .then(res => res.json())
       .then(todos => this.setState({todos: todos}))
   }
 
   addTodo = (event) => {
     if (event.key === 'Enter' && event.target.value !== '') {
-      fetch('http://localhost:8080/api/todos', {
+      fetch('https://frozen-brushlands-43586.herokuapp.com/api/todos', {
         method: 'post',
         headers: new Headers({
           'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export class Provider extends Component {
   }
 
   completeTodo = (todo) => {
-    fetch(`http://localhost:8080/api/todos/${todo._id}`, {
+    fetch(`https://frozen-brushlands-43586.herokuapp.com/api/todos/${todo._id}`, {
       method: 'put',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ export class Provider extends Component {
   }
 
   deleteTodo = (id) => {
-    fetch(`http://localhost:8080/api/todos/${id}`, {
+    fetch(`https://frozen-brushlands-43586.herokuapp.com/api/todos/${id}`, {
       method: 'delete',
     })
       .then(() => {
