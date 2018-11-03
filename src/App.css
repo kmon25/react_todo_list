@@ -48,6 +48,14 @@
   color: #3ec9e9;
 }
 
+.loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+
 @media screen and (max-width: 700px) {
   .App {
     width: 80%;

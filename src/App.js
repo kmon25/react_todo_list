@@ -3,6 +3,7 @@ import { Provider, Consumer } from './Context/Context';
 import InputField from './InputField/InputField';
 import Todo from './Todo/Todo';
 import './App.css';
+import loader from './loader.gif';
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
 
           const displayTodos = todos.map(todo => {
             return (
-              <Todo
+                <Todo
                 key={todo._id}
                 taskName={todo.name}
                 completed={todo.completed}
@@ -30,7 +31,12 @@ const App = () => {
               <h1>Todo List</h1>
               <p id='intro'>Add and delete your tasks below.</p>
               <InputField pressed={addTodo} />
-              {displayTodos}
+              {
+                (todos.length) ?
+                  displayTodos
+                :
+                  <img className='loading' src={loader} alt='loading gif' />
+              }
               <div className='stats'>
                 <p id='count'>Todos: <span>{todos.length}</span></p>
                 <p id='completed'>Completed: <span>{completedCount.length}</span></p>
